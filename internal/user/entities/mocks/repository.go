@@ -9,6 +9,8 @@ type Repository struct {
 	DeleteOneFn func(id string) (err error)
 }
 
+func( Repository)IsModuleRepository(){}
+
 func (r Repository) Store(input userEntities.User) (user userEntities.User, err error) {
 	return r.StoreFn(input)
 }

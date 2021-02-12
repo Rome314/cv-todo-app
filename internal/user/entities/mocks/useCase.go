@@ -9,6 +9,8 @@ type UseCase struct {
 	DeleteOneFn func(id string) (err error)
 }
 
+func (u UseCase)IsModuleUseCase(){}
+
 func (u UseCase) Create(input userEntities.CreateInput) (user userEntities.User, err error) {
 	return u.CreateFn(input)
 }
