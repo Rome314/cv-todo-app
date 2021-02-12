@@ -1,0 +1,19 @@
+
+[app]
+  debug = true
+
+[mongo]
+  db = "showcase"
+  host = "localhost"
+  login = "root"
+  password = "pass12345"
+
+[postgres]
+  db = "postgres"
+  host = "localhost"
+  password = "simplepassword"
+  port = "5432"
+  user = "postgres"
+
+[server]
+  api_port = "1234"
