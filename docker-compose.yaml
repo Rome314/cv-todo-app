@@ -1,0 +1,20 @@
+version: '3.1'
+
+networks:
+  external_nw:
+    internal: false
+
+services:
+  postgresql:
+    image: postgres:11-alpine
+    environment:
+      - POSTGRES_PASSWORD=simplepassword
+      - config_file=/etc/postgresql/postgresql.conf
+    volumes:
+      - ./.docker-compose/postgres/initdb.d/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh
+      - ./.docker-compose/postgres/postgresql.conf:/etc/postgresql/postgresql.conf
+    networks:
+      - external_nw
+    ports:
+      - 5432:5432
+    restart: unless-stopped

@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package todo.user;
+option go_package = "usersRPC";
+
+import "github.com/envoyproxy/protoc-gen-validate/validate/validate.proto";
+
+
+service UsersService {
+    rpc Create (CreateRequest) returns (CreateResponse);
+    rpc GetOne (GetOneRequest) returns (GetOneResponse);
+    rpc Update (UpdateRequest) returns (UpdateResponse);
+    rpc Delete (DeleteRequest) returns (DeleteResponse);
+
+}
+
+message User {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    string phone_number = 4;
+    int64 created = 5;
+    int64 last_updated = 6;
+
+}
+
+message CreateRequest {
+    string name = 1 [(validate.rules).string.min_len = 1];
+    string email = 2 [(validate.rules).string.min_len = 1];
+    string phone_number = 3 [(validate.rules).string.min_len = 1];
+}
+message CreateResponse {
+    User user = 1;
+}
+message GetOneRequest {
+    string id = 1 [(validate.rules).string.min_len = 1];
+}
+message GetOneResponse {
+    User user = 1;
+}
+
+message UpdateRequest {
+    string id = 1 [(validate.rules).string.min_len = 1];
+    string name = 2 [(validate.rules).string.min_len = 1];
+    string email = 3 [(validate.rules).string.min_len = 1];
+    string phone_number = 4 [(validate.rules).string.min_len = 1];
+
+}
+message UpdateResponse {
+    User user = 1;
+}
+message DeleteRequest {
+    string id = 1 [(validate.rules).string.min_len = 1];
+}
+message DeleteResponse {
+}
+
+message PostbackLog {
+    string postback_id = 1;
+    int32 status_code = 2;
+    int64 created = 3;
+    string response_body = 4;
+}
+
+message GetLogsRequest {
+    string postback_id = 1 [(validate.rules).string.min_len = 1];
+    int64 timestamp = 2;
+}
+message GetLogsResponse {
+    repeated PostbackLog logs = 1;
+}
